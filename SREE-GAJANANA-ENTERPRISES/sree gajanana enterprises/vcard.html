@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sree Gajanana Enterprises | Digital Business Card</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #FFD700;
+            --gold-light: #FFF176;
+            --gold-dark: #F9A825;
+            --deep: #0a0a0f;
+            --card-bg: rgba(15, 15, 25, 0.85);
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 215, 0, 0.25);
+            --neon: #FFD700;
+            --neon-glow: rgba(255, 215, 0, 0.4);
+            --white: #ffffff;
+            --muted: rgba(255,255,255,0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--deep);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px 60px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ── ANIMATED PARTICLE BACKGROUND ── */
+        #particles-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        body > *:not(#particles-canvas) { position: relative; z-index: 2; }
+
+        /* ── ANIMATED BG BLOBS ── */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            animation: blobMove 8s ease-in-out infinite alternate;
+            z-index: 0;
+            pointer-events: none;
+        }
+        body::before {
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(255,215,0,0.12), transparent);
+            top: -100px; left: -100px;
+        }
+        body::after {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(255,165,0,0.08), transparent);
+            bottom: -150px; right: -150px;
+            animation-delay: -4s;
+        }
+        @keyframes blobMove {
+            0% { transform: translate(0,0) scale(1); }
+            100% { transform: translate(40px, 60px) scale(1.1); }
+        }
+
+        /* ── HEADER ── */
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+            animation: slideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .header .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,215,0,0.1);
+            border: 1px solid rgba(255,215,0,0.3);
+            color: var(--gold);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 30px;
+            margin-bottom: 10px;
+            backdrop-filter: blur(10px);
+        }
+        .header .badge::before {
+            content: '';
+            width: 6px; height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FFD700 0%, #FFF176 40%, #F9A825 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+            text-shadow: none;
+        }
+
+        /* ── FLIP TIP ── */
+        .flip-tip {
+            font-size: 0.72rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: fadeIn 1s 0.5s both;
+        }
+        .flip-tip i { color: var(--gold); animation: spin 3s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* ── CARD CONTAINER ── */
+        .card-container {
+            width: 340px;
+            height: 210px;
+            perspective: 1200px;
+            margin-bottom: 36px;
+            cursor: pointer;
+            position: relative;
+            animation: cardEntrance 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+        }
+        @keyframes cardEntrance {
+            from { opacity: 0; transform: scale(0.85) translateY(20px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* Glowing ring behind card */
+        .card-container::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 22px;
+            background: conic-gradient(from 0deg, #FFD700, #FF8C00, #FFD700, #FFF176, #FFD700);
+            z-index: -1;
+            opacity: 0;
+            animation: ringGlow 3s ease-in-out infinite;
+            filter: blur(12px);
+        }
+        .card-container:hover::before { opacity: 0.6; }
+        @keyframes ringGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.02); }
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+        .card-container.flipped .card-inner { transform: rotateY(180deg); }
+
+        /* ── CARD FACES ── */
+        .card-front, .card-back {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 18px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 18px 20px;
+            border: 1px solid var(--glass-border);
+            background: linear-gradient(135deg, rgba(20,18,30,0.95) 0%, rgba(10,10,18,0.98) 100%);
+            box-shadow:
+                0 0 0 1px rgba(255,215,0,0.1),
+                0 20px 60px rgba(0,0,0,0.6),
+                inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+
+        /* Holographic shimmer overlay */
+        .card-front::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(115deg,
+                transparent 0%,
+                rgba(255,215,0,0.03) 30%,
+                rgba(255,255,255,0.05) 50%,
+                rgba(255,165,0,0.03) 70%,
+                transparent 100%);
+            z-index: 0;
+            pointer-events: none;
+            animation: shimmer 4s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.5; transform: translateX(-20px); }
+            50% { opacity: 1; transform: translateX(20px); }
+        }
+
+        /* Top gold line accent */
+        .card-front::after, .card-back::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 10%; right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            border-radius: 2px;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            text-align: center;
+        }
+
+        /* ── FRONT: TOP LOGO ── */
+        .top-logo-ring {
+            position: relative;
+            z-index: 2;
+        }
+        .top-logo-ring::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #FFD700, #FF8C00, #FFF176, #FFD700);
+            z-index: -1;
+            animation: rotateBorder 4s linear infinite;
+        }
+        @keyframes rotateBorder { to { transform: rotate(360deg); } }
+
+        .top-logo {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+            background: linear-gradient(135deg, #FFD700, #FF8C00);
+            padding: 8px;
+            border-radius: 50%;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── FRONT: COMPANY NAME ── */
+        .company-name {
+            font-size: 1.45rem;
+            font-weight: 900;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            line-height: 1.15;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 20px rgba(255,215,0,0.3);
+        }
+        .company-name span {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: var(--gold);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        /* ── FRONT: BRAND STRIP ── */
+        .brand-strip {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 7px;
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+        .brand-logo-wrapper {
+            background: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            box-shadow: 0 0 10px rgba(255,215,0,0.15), 0 3px 8px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .brand-logo-wrapper:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 0 20px rgba(255,215,0,0.4), 0 8px 16px rgba(0,0,0,0.3);
+        }
+        .brand-strip img {
+            height: 26px;
+            width: 26px;
+            object-fit: contain;
+        }
+
+        /* ── CARD BACK ── */
+        .card-back img.back-logo {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            background: linear-gradient(135deg, #FFD700, #FF8C00);
+            padding: 6px;
+            border-radius: 50%;
+            z-index: 2;
+            position: relative;
+        }
+        .brand-title {
+            font-weight: 800;
+            font-size: 0.65rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+        }
+        .brand-list {
+            font-size: 0.52rem;
+            color: var(--muted);
+            line-height: 1.7;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 2;
+        }
+        .back-phones {
+            font-weight: 700;
+            font-size: 0.7rem;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 2;
+        }
+        .back-phones i { color: var(--gold); margin-right: 5px; }
+        .back-address-text {
+            font-size: 0.5rem;
+            color: var(--muted);
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ── ACTION GRID ── */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            width: 100%;
+            max-width: 340px;
+            animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s both;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .action-btn {
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(20px);
+            padding: 18px 12px;
+            border-radius: 16px;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.82rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255,215,0,0.12);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,215,0,0.08), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .action-btn:hover { transform: translateY(-6px) scale(1.02); border-color: var(--gold); box-shadow: 0 12px 30px rgba(255,215,0,0.15), 0 4px 20px rgba(0,0,0,0.3); }
+        .action-btn:hover::before { opacity: 1; }
+
+        .action-btn i {
+            font-size: 1.4rem;
+            color: var(--gold);
+            transition: transform 0.3s ease;
+        }
+        .action-btn:hover i { transform: scale(1.2) rotate(-5deg); }
+
+        /* Specific button colors on hover */
+        .action-btn.call:hover { border-color: #4CAF50; box-shadow: 0 12px 30px rgba(76,175,80,0.2); }
+        .action-btn.call:hover i { color: #4CAF50; }
+        .action-btn.whatsapp:hover { border-color: #25D366; box-shadow: 0 12px 30px rgba(37,211,102,0.2); }
+        .action-btn.whatsapp:hover i { color: #25D366; }
+        .action-btn.email:hover { border-color: #EA4335; box-shadow: 0 12px 30px rgba(234,67,53,0.2); }
+        .action-btn.email:hover i { color: #EA4335; }
+        .action-btn.website:hover { border-color: #4285F4; box-shadow: 0 12px 30px rgba(66,133,244,0.2); }
+        .action-btn.website:hover i { color: #4285F4; }
+
+        /* ── SAVE BUTTON ── */
+        .full-btn {
+            width: 100%;
+            max-width: 340px;
+            background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);
+            color: #000;
+            padding: 17px;
+            border-radius: 16px;
+            font-weight: 900;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 8px 30px rgba(255,165,0,0.35);
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.8s both;
+        }
+        .full-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: conic-gradient(transparent, rgba(255,255,255,0.2), transparent 30%);
+            animation: sweepBtn 3s linear infinite;
+        }
+        @keyframes sweepBtn { to { transform: rotate(360deg); } }
+        .full-btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 16px 50px rgba(255,165,0,0.5);
+            filter: brightness(1.1);
+        }
+
+        /* ── FOOTER ── */
+        .footer-info {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.25);
+            animation: fadeIn 1s 1s both;
+        }
+        .footer-info p:first-child { color: rgba(255,215,0,0.4); font-weight: 600; margin-bottom: 3px; }
+
+        /* ── DIVIDER ── */
+        .divider {
+            width: 100%;
+            max-width: 340px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent);
+            margin: 8px 0 16px;
+        }
+
+        /* ── SECTION LABEL ── */
+        .section-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            opacity: 0.7;
+            margin-bottom: 8px;
+            text-align: center;
+            align-self: center;
+            width: 100%;
+            max-width: 340px;
+            animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both;
+        }
+
+        @media (max-width: 400px) {
+            .card-container { width: 300px; height: 186px; }
+            .header h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<!-- ── HEADER ── -->
+<div class="header">
+    <div class="badge">Super Stockist & Distributor</div>
+    <h1>Sree Gajanana Enterprises</h1>
+</div>
+
+<!-- ── FLIP TIP ── -->
+<div class="flip-tip">
+    <i class="fa-solid fa-rotate"></i> Tap card to reveal contact details
+</div>
+
+<!-- ── CARD ── -->
+<div class="card-container" id="vcard" onclick="this.classList.toggle('flipped')">
+    <div class="card-inner">
+
+        <!-- FRONT -->
+        <div class="card-front">
+            <div class="top-logo-ring">
+                <img src="LOGO/mainlogo2.png" class="top-logo" alt="SGE Logo">
+            </div>
+            <div class="company-name">
+                Sree Gajanana<br>Enterprises
+            </div>
+            <div class="brand-strip">
+                <div class="brand-logo-wrapper"><img src="LOGO/surya.png" alt="Surya"></div>
+                <div class="brand-logo-wrapper"><img src="LOGO/artos.png" alt="Artos"></div>
+                <div class="brand-logo-wrapper"><img src="LOGO/continental.png" alt="Continental"></div>
+                <div class="brand-logo-wrapper"><img src="LOGO/ikava.png" alt="Ikava"></div>
+                <div class="brand-logo-wrapper"><img src="LOGO/parrys.png" alt="Parrys"></div>
+                <div class="brand-logo-wrapper"><img src="LOGO/yutika.png" alt="Yutika"></div>
+            </div>
+        </div>
+
+        <!-- BACK -->
+        <div class="card-back">
+            <img src="LOGO/mainlogo2.png" class="back-logo" alt="SGE Logo">
+            <div class="brand-title">Authorized Distributors</div>
+            <div class="brand-list">
+                SURYA MASALE • ARTOS DRINKS • CONTINENTAL COFFEE<br>
+                IKAVA HYGIENE • PARRY'S SUGAR & DAL • YUTIKA HERBAL
+            </div>
+            <div class="back-phones">
+                <i class="fa-solid fa-phone"></i>+91 81258 12508 &nbsp;•&nbsp; +91 81252 07888
+            </div>
+            <div class="back-address-text">
+                Door No: 76-1-GF/17, Sai Nirman Complex, Bhavani Puram, Vijayawada - 520012
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ── ACTIONS ── -->
+<p class="section-label"><i class="fa-solid fa-bolt" style="margin-right:6px;"></i>Quick Actions</p>
+
+<div class="actions-grid">
+    <a href="tel:+918125812508" class="action-btn call">
+        <i class="fa-solid fa-phone"></i>
+        <span>Call Now</span>
+    </a>
+    <a href="https://wa.me/918125812508" class="action-btn whatsapp">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span>WhatsApp</span>
+    </a>
+    <a href="mailto:gajananavja@gmail.com" class="action-btn email">
+        <i class="fa-solid fa-envelope"></i>
+        <span>Email</span>
+    </a>
+    <a href="index.html" class="action-btn website">
+        <i class="fa-solid fa-globe"></i>
+        <span>Website</span>
+    </a>
+</div>
+
+<div class="divider"></div>
+
+<button onclick="downloadVCF()" class="full-btn">
+    <i class="fa-solid fa-user-plus"></i> Save to Contacts
+</button>
+
+<div class="footer-info">
+    <p>© 2026 Sree Gajanana Enterprises</p>
+    <p>Vijayawada, Andhra Pradesh</p>
+</div>
+
+<script>
+    /* ── PARTICLE CANVAS ── */
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function createParticle() {
+        return {
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 1.5 + 0.3,
+            dx: (Math.random() - 0.5) * 0.4,
+            dy: -(Math.random() * 0.6 + 0.2),
+            alpha: Math.random() * 0.6 + 0.1,
+            color: Math.random() > 0.5 ? '255,215,0' : '255,255,255'
+        };
+    }
+
+    for (let i = 0; i < 80; i++) particles.push(createParticle());
+
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p, i) => {
+            p.x += p.dx;
+            p.y += p.dy;
+            p.alpha -= 0.001;
+            if (p.alpha <= 0 || p.y < 0) particles[i] = createParticle();
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${p.color},${p.alpha})`;
+            ctx.fill();
+        });
+        requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    /* ── TILT EFFECT ON CARD ── */
+    const card = document.getElementById('vcard');
+    card.addEventListener('mousemove', (e) => {
+        if (card.classList.contains('flipped')) return;
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.querySelector('.card-inner').style.transform =
+            `rotateY(${x * 12}deg) rotateX(${-y * 10}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+        if (!card.classList.contains('flipped')) {
+            card.querySelector('.card-inner').style.transform = '';
+        }
+    });
+    card.addEventListener('click', () => {
+        card.querySelector('.card-inner').style.transform = '';
+    });
+
+    /* ── VCF DOWNLOAD ── */
+    function downloadVCF() {
+        const vcfData = `BEGIN:VCARD
+VERSION:3.0
+FN:Sree Gajanana Enterprises
+ORG:Sree Gajanana Enterprises;
+TEL;TYPE=WORK,VOICE:+918125812508
+TEL;TYPE=WORK,VOICE:+918125207888
+EMAIL:gajananavja@gmail.com
+ADR;TYPE=WORK:;;Door No: 76-1-GF/17, Sai Nirman Complex, Bhavani Puram;Vijayawada;AP;520012;India
+URL:https://gajananaenterprises.com
+END:VCARD`;
+        const blob = new Blob([vcfData], { type: 'text/vcard' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'Sree_Gajanana_Enterprises.vcf'; a.click();
+    }
+</script>
+</body>
+</html>

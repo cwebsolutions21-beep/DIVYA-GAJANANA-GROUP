@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Catalog | Sree Gajanana Enterprises</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FFD700;
+            --primary-glow: rgba(255, 215, 0, 0.2);
+            --bg: #0a0a0f;
+            --bg-card: rgba(255, 215, 0, 0.04);
+            --text: #ffffff;
+            --border-subtle: rgba(255, 215, 0, 0.12);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #particles-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+        body > *:not(#particles-canvas):not(.floating-order-btn) { position:relative; z-index:1; }
+        .floating-order-btn { position:fixed !important; z-index:9999 !important; }
+        body::before {
+            content:''; position:fixed; width:500px; height:500px;
+            background:radial-gradient(circle, rgba(255,215,0,0.06), transparent 70%);
+            top:-150px; left:-150px; z-index:0; pointer-events:none;
+            animation:blobFloat 10s ease-in-out infinite alternate; border-radius:50%;
+        }
+        body::after {
+            content:''; position:fixed; width:400px; height:400px;
+            background:radial-gradient(circle, rgba(255,140,0,0.05), transparent 70%);
+            bottom:-150px; right:-150px; z-index:0; pointer-events:none;
+            animation:blobFloat 12s ease-in-out infinite alternate-reverse; border-radius:50%;
+        }
+        @keyframes blobFloat { to { transform: translate(50px,70px) scale(1.1); } }
+
+        /* Scroll Reveal Utility */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        header {
+            background: rgba(28, 28, 28, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 1.5rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .catalog-container { padding: 4rem 0; }
+        .brand-section { margin-bottom: 4rem; scroll-margin-top: 100px; }
+        .brand-header { 
+            display: flex; 
+            align-items: center; 
+            gap: 2rem; 
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .brand-header img { height: 80px; width: auto; object-fit: contain; }
+        .brand-header h2 { font-size: 2.5rem; color: var(--primary); }
+        
+        .item-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .product-item-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            border: 1px solid var(--border-subtle);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .product-item-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+            box-shadow: 0 0 30px var(--primary-glow);
+        }
+        
+        .buy-plus {
+            background: var(--primary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+        }
+
+        .buy-plus:hover {
+            transform: scale(1.1);
+            background: #059669;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.05);
+            padding: 0.3rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .qty-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 1.1rem;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .qty-btn:hover { color: white; }
+
+        .qty-val {
+            font-weight: 700;
+            color: white;
+            min-width: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .action-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .product-item-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            background: rgba(255,255,255,0.08);
+        }
+        
+        .item-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            background: rgba(16, 185, 129, 0.1);
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .product-item-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: white;
+        }
+        
+        .product-item-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .floating-order-btn {
+            position: fixed;
+            bottom: 30px;
+            left: auto !important;
+            right: 30px !important;
+            background: #25d366;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        .floating-order-btn:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.5);
+        }
+
+        .floating-order-btn span {
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .floating-order-btn {
+                bottom: 20px;
+                left: auto !important;
+                right: 20px !important;
+                padding: 0.8rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <img src="LOGO/mainlogo2.png" alt="Gajanana Logo" class="logo-img">
+                    <span class="brand-name">Gajanana Enterprises</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#brands">Brands</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="vcard.html" style="color: var(--accent);">Digital V-Card</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="catalog-container" style="padding-top: 100px;">
+        <div class="container">
+            <div style="margin-bottom: 2rem;">
+                <a href="index.html" class="cta-button secondary" style="min-width: auto; height: 40px; padding: 0 1rem; font-size: 0.8rem; border-radius: 8px;">
+                    <i class="fas fa-arrow-left" style="margin-right: 6px;"></i> Back to Home
+                </a>
+            </div>
+            
+            <!-- Surya Masale Section -->
+            <section class="brand-section reveal" id="surya">
+                <div class="brand-header reveal">
+                    <img src="LOGO/surya.png" alt="Surya Logo">
+                    <h2>Surya Masale & Spices</h2>
+                </div>
+                <div class="item-grid">
+                    <div class="product-item-card reveal" data-product="Surya Biryani Masala">
+                        <div class="item-icon"><i class="fas fa-mortar-pestle"></i></div>
+                        <h4>Biryani Masala</h4>
+                        <p>Authentic blend for perfect aromatic biryani.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card reveal" data-product="Surya Pure Chilli Powder">
+                        <div class="item-icon"><i class="fas fa-pepper-hot"></i></div>
+                        <h4>Pure Chilli Powder</h4>
+                        <p>High-grade spicy and vibrant red chilli.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card reveal" data-product="Surya Turmeric Powder">
+                        <div class="item-icon"><i class="fas fa-leaf"></i></div>
+                        <h4>Turmeric Powder</h4>
+                        <p>Pure, antiseptic, and premium quality turmeric.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card reveal" data-product="Surya Sambar Masala">
+                        <div class="item-icon"><i class="fas fa-bowl-food"></i></div>
+                        <h4>Sambar Masala</h4>
+                        <p>Traditional South Indian sambar blend.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card reveal" data-product="Surya Chicken Masala">
+                        <div class="item-icon"><i class="fas fa-drumstick-bite"></i></div>
+                        <h4>Chicken Masala</h4>
+                        <p>Special blend for rich and savory non-veg dishes.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Continental Coffee Section -->
+            <section class="brand-section reveal" id="continental">
+                <div class="brand-header reveal">
+                    <img src="LOGO/continental.png" alt="Continental Logo">
+                    <h2>Continental Coffee</h2>
+                </div>
+                <div class="item-grid">
+                    <div class="product-item-card reveal" data-product="Continental Xtra Strong Coffee">
+                        <div class="item-icon"><i class="fas fa-mug-hot"></i></div>
+                        <h4>Xtra Strong Instant</h4>
+                        <p>Bold and robust instant coffee for an energetic start.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card reveal" data-product="Continental Premium Filter Coffee">
+                        <div class="item-icon"><i class="fas fa-coffee"></i></div>
+                        <h4>Premium Filter Coffee</h4>
+                        <p>Authentic South Indian filter coffee experience.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card reveal" data-product="Continental 3-in-1 Premix">
+                        <div class="item-icon"><i class="fas fa-bolt"></i></div>
+                        <h4>3-in-1 Premix</h4>
+                        <p>Quick and delicious coffee, sugar, and creamer mix.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card reveal" data-product="Continental Freeze Dried Coffee">
+                        <div class="item-icon"><i class="fas fa-snowflake"></i></div>
+                        <h4>Freeze Dried</h4>
+                        <p>Gold standard premium freeze-dried coffee crystals.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Artos Section -->
+            <section class="brand-section reveal" id="artos">
+                <div class="brand-header reveal">
+                    <img src="LOGO/artos.png" alt="Artos Logo">
+                    <h2>Artos Beverages</h2>
+                </div>
+                <div class="item-grid">
+                    <div class="product-item-card reveal" data-product="Artos Classic Grape">
+                        <div class="item-icon"><i class="fas fa-wine-glass-alt"></i></div>
+                        <h4>Classic Grape</h4>
+                        <p>The heritage grape soda that started it all.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card reveal" data-product="Artos Lemon & Orange">
+                        <div class="item-icon"><i class="fas fa-lemon"></i></div>
+                        <h4>Lemon & Orange</h4>
+                        <p>Zesty and refreshing citrus carbonated drinks.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card reveal" data-product="Artos Ginger Soda">
+                        <div class="item-icon"><i class="fas fa-glass-whiskey"></i></div>
+                        <h4>Ginger Soda</h4>
+                        <p>Strong and fizzy ginger-based refreshing soda.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card reveal" data-product="Artos Club Soda">
+                        <div class="item-icon"><i class="fas fa-fizz-bubbles"></i></div>
+                        <h4>Club Soda</h4>
+                        <p>High-fizz sparkling water for all occasions.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ikava Section -->
+            <section class="brand-section reveal" id="ikava">
+                <div class="brand-header reveal">
+                    <img src="LOGO/ikava.png" alt="Ikava Logo">
+                    <h2>Ikava Hygiene</h2>
+                </div>
+                <div class="item-grid">
+                    <div class="product-item-card reveal" data-product="Ikava Floor Cleaner">
+                        <div class="item-icon"><i class="fas fa-hand-sparkles"></i></div>
+                        <h4>Floor Cleaner</h4>
+                        <p>Powerful cleaning with Sandal and Lemon fragrances.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card reveal" data-product="Ikava Hand Wash">
+                        <div class="item-icon"><i class="fas fa-hands-wash"></i></div>
+                        <h4>Hand Wash</h4>
+                        <p>Gentle on skin, tough on germs with herbal extracts.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card reveal" data-product="Ikava Dish Wash">
+                        <div class="item-icon"><i class="fas fa-sink"></i></div>
+                        <h4>Dish Wash</h4>
+                        <p>Concentrated liquid for sparkling clean utensils.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card reveal" data-product="Ikava Glass Cleaner">
+                        <div class="item-icon"><i class="fas fa-spray-can-sparkles"></i></div>
+                        <h4>Glass Cleaner</h4>
+                        <p>Streak-free cleaning for all glass surfaces.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Parry's Section -->
+            <section class="brand-section reveal" id="parrys">
+                <div class="brand-header reveal">
+                    <img src="LOGO/parrys.png" alt="Parry's Logo">
+                    <h2>Parry's Staples</h2>
+                </div>
+                <div class="item-grid">
+                    <div class="product-item-card reveal" data-product="Parry's Premium Dals">
+                        <div class="item-icon"><i class="fas fa-seedling"></i></div>
+                        <h4>Premium Dals</h4>
+                        <p>Unpolished Toor, Moong, and Urad dals.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card reveal" data-product="Parry's Refined Sugar">
+                        <div class="item-icon"><i class="fas fa-cube"></i></div>
+                        <h4>Refined Sugar</h4>
+                        <p>Pure white sulfur-free refined sugar.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card reveal" data-product="Parry's Natural Jaggery">
+                        <div class="item-icon"><i class="fas fa-boxes"></i></div>
+                        <h4>Natural Jaggery</h4>
+                        <p>Healthy and chemical-free jaggery powder and blocks.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card reveal" data-product="Parry's Sweet Care Sugar">
+                        <div class="item-icon"><i class="fas fa-heart"></i></div>
+                        <h4>Sweet Care</h4>
+                        <p>Low GI sugar for health-conscious families.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Yutika Section -->
+            <section class="brand-section reveal" id="yutika">
+                <div class="brand-header reveal">
+                    <img src="LOGO/yutika.png" alt="Yutika Logo">
+                    <h2>Yutika Skincare</h2>
+                </div>
+                <div class="item-grid">
+                    <div class="product-item-card" data-product="Yutika Hair Color">
+                        <div class="item-icon"><i class="fas fa-magic"></i></div>
+                        <h4>Hair Color</h4>
+                        <p>Premium ammonia-free herbal hair color range.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card" data-product="Yutika Face Wash">
+                        <div class="item-icon"><i class="fas fa-smile-beam"></i></div>
+                        <h4>Face Wash</h4>
+                        <p>Refreshing herbal face washes for daily glow.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card" data-product="Yutika Cold Cream">
+                        <div class="item-icon"><i class="fas fa-sparkles"></i></div>
+                        <h4>Cold Cream</h4>
+                        <p>Deep moisturizing winter care for soft skin.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item-card" data-product="Yutika Aloe Vera Gel">
+                        <div class="item-icon"><i class="fas fa-spa"></i></div>
+                        <h4>Aloe Vera Gel</h4>
+                        <p>Pure and natural soothing gel for hair and skin.</p>
+                        <div class="action-row">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="updateQty(this, -1)"><i class="fas fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn" onclick="updateQty(this, 1)"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <button class="floating-order-btn" onclick="sendFullOrder()" style="left:auto; right:30px;">
+        <i class="fab fa-whatsapp" style="font-size: 1.5rem;"></i>
+        <span>Send Order to WhatsApp</span>
+    </button>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Sree Gajanana Enterprises. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Reveal Logic
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        window.addEventListener("load", reveal);
+
+        function updateQty(btn, change) {
+            const card = btn.closest('.product-item-card');
+            const qtySpan = card.querySelector('.qty-val');
+            let currentQty = parseInt(qtySpan.innerText);
+            currentQty = Math.max(0, currentQty + change);
+            qtySpan.innerText = currentQty;
+        }
+
+        function sendFullOrder() {
+            const cards = document.querySelectorAll('.product-item-card');
+            let orderList = [];
+            
+            cards.forEach(card => {
+                const qty = parseInt(card.querySelector('.qty-val').innerText);
+                if (qty > 0) {
+                    const productName = card.getAttribute('data-product');
+                    orderList.push(`${qty} x ${productName}`);
+                }
+            });
+
+            if (orderList.length === 0) {
+                alert("Please select at least one item first!");
+                return;
+            }
+
+            const phoneNumber = "918125812508";
+            const message = `Hi Gajanana Enterprises, I want following items:\n${orderList.join('\n')}`;
+            
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+
+    <script>
+        // ── BIG GLOWING GOLD SPOTS ──
+        const canvas = document.createElement('canvas');
+        canvas.id = 'particles-canvas';
+        document.body.prepend(canvas);
+        const ctx = canvas.getContext('2d');
+        let pts = [];
+        const resize = () => { canvas.width = innerWidth; canvas.height = document.body.scrollHeight; };
+        resize(); window.addEventListener('resize', resize);
+        function makeSpot(startY) {
+            return {
+                x: Math.random() * innerWidth,
+                y: startY !== undefined ? startY : Math.random() * document.body.scrollHeight,
+                r: Math.random() * 3 + 1.5, dx: (Math.random() - 0.5) * 0.6,
+                dy: -(Math.random() * 0.4 + 0.15), a: Math.random() * 0.7 + 0.3,
+                glow: Math.random() * 8 + 4,
+                c: Math.random() > 0.3 ? '255,215,0' : '255,180,0'
+            };
+        }
+        for (let i = 0; i < 150; i++) pts.push(makeSpot());
+        (function loop() {
+            resize(); ctx.clearRect(0, 0, canvas.width, canvas.height);
+            pts.forEach((p, i) => {
+                p.x += p.dx; p.y += p.dy; p.a -= 0.0005;
+                if (p.a <= 0 || p.y < -20 || p.x < -20 || p.x > canvas.width + 20) {
+                    pts[i] = makeSpot(document.body.scrollHeight + 20); return;
+                }
+                const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.glow);
+                grad.addColorStop(0, `rgba(${p.c},${p.a * 0.6})`);
+                grad.addColorStop(1, `rgba(${p.c},0)`);
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.glow, 0, Math.PI * 2);
+                ctx.fillStyle = grad; ctx.fill();
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${p.c},${p.a})`; ctx.fill();
+            }); requestAnimationFrame(loop);
+        })();
+    </script>
+
+</body>
+
+</html>

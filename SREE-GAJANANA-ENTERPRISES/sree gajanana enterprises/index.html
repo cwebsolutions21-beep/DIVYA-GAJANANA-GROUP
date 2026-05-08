@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sree Gajanana Enterprises | Authorized Wholesale Distributor</title>
+    <meta name="description"
+        content="Super Stockist of Surya Masala and Distributors of Artos, Ikava, Parry's, Yutika, and Continental Coffee. Bulk, Wholesale and Retail in Vijayawada.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        #particles-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+        body { position:relative; }
+        body > *:not(#particles-canvas) { position:relative; z-index:1; }
+        body::before {
+            content:''; position:fixed; width:600px; height:600px;
+            background:radial-gradient(circle, rgba(255,215,0,0.06), transparent 70%);
+            top:-200px; left:-200px; z-index:0; pointer-events:none;
+            animation:blob1 10s ease-in-out infinite alternate;
+        }
+        body::after {
+            content:''; position:fixed; width:500px; height:500px;
+            background:radial-gradient(circle, rgba(255,140,0,0.05), transparent 70%);
+            bottom:-200px; right:-200px; z-index:0; pointer-events:none;
+            animation:blob1 12s ease-in-out infinite alternate-reverse;
+        }
+        @keyframes blob1 { to { transform: translate(60px,80px) scale(1.15); } }
+
+        header { background: rgba(5,5,8,0.85) !important; backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,215,0,0.1) !important; }
+        .brand-name { background: linear-gradient(135deg,#FFD700,#FF8C00); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:800; }
+        nav a { color:rgba(255,255,255,0.75) !important; transition:color 0.3s; }
+        nav a:hover { color:#FFD700 !important; }
+
+        .hero { background: linear-gradient(135deg, #0a0a0f 0%, #0f0e18 100%) !important; overflow:hidden; }
+        .hero::before {
+            content:''; position:absolute; inset:0;
+            background: radial-gradient(ellipse at 30% 50%, rgba(255,215,0,0.06) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 80%, rgba(255,140,0,0.04) 0%, transparent 50%);
+        }
+        .hero-badge {
+            background: rgba(255,215,0,0.1) !important;
+            border:1px solid rgba(255,215,0,0.35) !important;
+            color:#FFD700 !important;
+            animation: badgePulse 2.5s ease-in-out infinite;
+        }
+        @keyframes badgePulse { 0%,100%{box-shadow:0 0 0 0 rgba(255,215,0,0.2)} 50%{box-shadow:0 0 20px 6px rgba(255,215,0,0.1)} }
+
+        .hero h1 {
+            background: linear-gradient(135deg,#fff 30%,#FFD700 70%,#FF8C00 100%);
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+            animation: slideUp 0.9s cubic-bezier(0.34,1.56,0.64,1) both;
+        }
+        @keyframes slideUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+        .cta-button.primary { background:linear-gradient(135deg,#FFD700,#FF8C00) !important; color:#000 !important; font-weight:800 !important; box-shadow:0 8px 30px rgba(255,165,0,0.3) !important; }
+        .cta-button.primary:hover { transform:translateY(-4px) scale(1.03) !important; box-shadow:0 16px 40px rgba(255,165,0,0.45) !important; }
+        .cta-button.secondary { border:1px solid rgba(255,215,0,0.4) !important; color:#FFD700 !important; background:rgba(255,215,0,0.06) !important; }
+        .cta-button.secondary:hover { background:rgba(255,215,0,0.12) !important; }
+
+        .brand-card {
+            background: rgba(255,215,0,0.03) !important;
+            border:1px solid rgba(255,215,0,0.1) !important;
+            transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1) !important;
+        }
+        .brand-card:hover {
+            transform:translateY(-8px) scale(1.03) !important;
+            border-color:rgba(255,215,0,0.4) !important;
+            box-shadow:0 20px 40px rgba(255,215,0,0.1) !important;
+        }
+        .view-btn { background:linear-gradient(135deg,#FFD700,#FF8C00) !important; color:#000 !important; font-weight:700 !important; }
+
+        .service-card {
+            background: rgba(255,215,0,0.03) !important;
+            border:1px solid rgba(255,215,0,0.08) !important;
+            transition:all 0.4s ease !important;
+        }
+        .service-card:hover { border-color:#FFD700 !important; box-shadow:0 0 30px rgba(255,215,0,0.1) !important; transform:translateY(-6px) !important; }
+        .service-icon { color:#FFD700 !important; }
+
+        .product-showcase { background:rgba(255,215,0,0.02) !important; border:1px solid rgba(255,215,0,0.08) !important; border-radius:20px !important; }
+        .product-list li i { color:#FFD700 !important; }
+        .section-title::after { background:linear-gradient(90deg,#FFD700,#FF8C00) !important; }
+
+        .contact-section { background:rgba(255,215,0,0.02) !important; border-top:1px solid rgba(255,215,0,0.08) !important; }
+        .contact-info-item i { color:#FFD700 !important; }
+
+        footer { background:#050508 !important; border-top:1px solid rgba(255,215,0,0.1) !important; }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <!-- Stylized Ganesha SVG Logo -->
+                    <img src="LOGO/mainlogo2.png"
+                        alt="Gajanana Logo" class="logo-img">
+                    <span class="brand-name">Gajanana Enterprises</span>
+                </div>
+                <div class="menu-toggle" id="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#brands">Brands</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="vcard.html" style="color: var(--accent);">Digital V-Card</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <span class="hero-badge">SUPER STOCKIST</span>
+                    <h1 style="text-transform: uppercase;">SREE GAJANANA ENTERPRISES</h1>
+                    <p>Official Super Stockist & Wholesale Supplier for Leading Brands.</p>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="cta-button primary">Enquire Now</a>
+                        <a href="#brands" class="cta-button secondary">View Our Brands</a>
+                        <a href="https://wa.me/918125812508" class="cta-button whatsapp">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brands Section -->
+        <section class="brands-section reveal" id="brands">
+            <div class="container">
+                <h2 class="section-title reveal">Authorized Sales & Distribution</h2>
+                <div class="brands-grid">
+                    <div class="brand-card reveal">
+                        <img src="LOGO/surya.png" alt="Surya Masale">
+                        <span>Surya Masale</span>
+                        <a href="products.html#surya" class="view-btn">View Products</a>
+                    </div>
+                    <div class="brand-card reveal">
+                        <img src="LOGO/artos.png" alt="Artos">
+                        <span>Artos</span>
+                        <a href="products.html#artos" class="view-btn">View Products</a>
+                    </div>
+                    <div class="brand-card reveal">
+                        <img src="LOGO/continental.png" alt="Continental Coffee">
+                        <span>Continental</span>
+                        <a href="products.html#continental" class="view-btn">View Products</a>
+                    </div>
+                    <div class="brand-card reveal">
+                        <img src="LOGO/ikava.png" alt="Ikava">
+                        <span>Ikava</span>
+                        <a href="products.html#ikava" class="view-btn">View Products</a>
+                    </div>
+                    <div class="brand-card reveal">
+                        <img src="LOGO/parrys.png" alt="Parry's">
+                        <span>Parry's</span>
+                        <a href="products.html#parrys" class="view-btn">View Products</a>
+                    </div>
+                    <div class="brand-card reveal">
+                        <img src="LOGO/yutika.png" alt="Yutika">
+                        <span>Yutika</span>
+                        <a href="products.html#yutika" class="view-btn">View Products</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services reveal" id="products">
+            <div class="container">
+                <h2 class="section-title reveal">Distribution Expertise</h2>
+                <div class="services-grid">
+                    <div class="service-card reveal">
+                        <i class="fas fa-boxes service-icon"></i>
+                        <h3>Bulk Supplies</h3>
+                        <p>We handle large-scale orders with efficiency and reliability for industrial and commercial needs.</p>
+                    </div>
+                    <div class="service-card reveal">
+                        <i class="fas fa-store service-icon"></i>
+                        <h3>Wholesale</h3>
+                        <p>Competitive pricing for retailers and local businesses. Best margins on top-tier brands.</p>
+                    </div>
+                    <div class="service-card reveal">
+                        <i class="fas fa-shopping-bag service-icon"></i>
+                        <h3>Retail</h3>
+                        <p>Quality products directly to customers at our dedicated retail point.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="products-section">
+            <div class="container">
+                <h2 class="section-title">Featured Brands</h2>
+                
+                <!-- Product 1 -->
+                <div class="product-showcase reveal" id="surya-showcase">
+                    <div class="product-image">
+                        <img src="LOGO/Surya Masale & Spices.jpeg" alt="Surya Masale & Spices">
+                    </div>
+                    <div class="product-info">
+                        <span class="hero-badge" style="margin-bottom: 1rem;">SUPER STOCKIST</span>
+                        <h3>Surya Masale & Spices</h3>
+                        <p>Relive those summer meals with authentic Surya Masale. From Biryani Masala to pure Turmeric and Chilli powders, we stock the complete range.</p>
+                        <ul class="product-list">
+                            <li><i class="fas fa-check"></i> Biryani Masala & Garam Masala</li>
+                            <li><i class="fas fa-check"></i> Pure Turmeric, Chilli & Coriander</li>
+                            <li><i class="fas fa-check"></i> Authentic Ginger Garlic Paste</li>
+                            <li><i class="fas fa-check"></i> Sambar & Rasam Special Mix</li>
+                            <li><i class="fas fa-check"></i> Chicken & Meat Masala Range</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Continental Coffee -->
+                <div class="product-showcase reveal" style="direction: rtl;" id="continental-showcase">
+                    <div class="product-image">
+                        <img src="LOGO/Continental Xtra Coffee.jpeg" alt="Continental Xtra Coffee">
+                    </div>
+                    <div class="product-info" style="direction: ltr;">
+                        <h3>Continental Xtra Coffee</h3>
+                        <p>Xtra Strong Coffee at Paisa Vasool prices. Experience the rich aroma and bold taste of premium blends.</p>
+                        <ul class="product-list">
+                            <li><i class="fas fa-coffee"></i> Xtra Strong Instant Coffee</li>
+                            <li><i class="fas fa-coffee"></i> Premium Filter Coffee Blends</li>
+                            <li><i class="fas fa-coffee"></i> 3-in-1 Premix Varieties</li>
+                            <li><i class="fas fa-coffee"></i> Freeze Dried Premium Coffee</li>
+                            <li><i class="fas fa-coffee"></i> Roasted Coffee Beans</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Parry's Dal -->
+                <div class="product-showcase reveal" id="parrys-showcase">
+                    <div class="product-image">
+                        <img src="LOGO/Parry's Dals & Pulses.jpeg" alt="Parry's Dals Range">
+                    </div>
+                    <div class="product-info">
+                        <h3>Parry's Dals & Pulses</h3>
+                        <p>Build good health, one meal at a time. High-quality pulses packed with nutrients for a balanced diet.</p>
+                        <ul class="product-list">
+                            <li><i class="fas fa-leaf"></i> Moong Dal, Toor Dal & Urad Dal</li>
+                            <li><i class="fas fa-leaf"></i> Chana Dal & Kabuli Chana</li>
+                            <li><i class="fas fa-leaf"></i> Unpolished, Protein-Rich Pulses</li>
+                            <li><i class="fas fa-leaf"></i> Whole Moong & Masoor Dal</li>
+                            <li><i class="fas fa-leaf"></i> Premium Quality Soyabean</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Parry's Sugar & Jaggery -->
+                <div class="product-showcase reveal" style="direction: rtl;">
+                    <div class="product-image">
+                        <img src="LOGO/Parry's Sugar & Jaggery.jpg" alt="Parry's Sugar & Jaggery">
+                    </div>
+                    <div class="product-info" style="direction: ltr;">
+                        <h3>Parry's Sugar & Jaggery</h3>
+                        <p>Pure and healthy sweeteners for every home. From refined sugar to healthy jaggery alternatives.</p>
+                        <ul class="product-list">
+                            <li><i class="fas fa-cube"></i> Refined White & Brown Sugar</li>
+                            <li><i class="fas fa-cube"></i> Natural Jaggery & Jaggery Powder</li>
+                            <li><i class="fas fa-cube"></i> Sweet Care Low GI Sugar</li>
+                            <li><i class="fas fa-cube"></i> Pure Liquid Jaggery</li>
+                            <li><i class="fas fa-cube"></i> Organic Sugar Crystals</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Artos -->
+                <div class="product-showcase reveal" id="artos-showcase">
+                    <div class="product-image">
+                        <img src="LOGO/Artos Soft Drinks Range2.jpg" alt="Artos Soft Drinks Range">
+                    </div>
+                    <div class="product-info">
+                        <h3>Artos Soft Drinks Range</h3>
+                        <p>Refreshing soft drinks since 1919. Crafted for the ultimate fizz and trusted heritage taste.</p>
+                        <ul class="product-list">
+                            <li><i class="fas fa-wine-glass"></i> Classic Grape, Lemon & Orange</li>
+                            <li><i class="fas fa-wine-glass"></i> Refreshing Ginger Soda</li>
+                            <li><i class="fas fa-wine-glass"></i> ZIB 3 Power Range</li>
+                            <li><i class="fas fa-wine-glass"></i> Sparkling Club Soda</li>
+                            <li><i class="fas fa-wine-glass"></i> Heritage Glass Bottle Range</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Ikava -->
+                <div class="product-showcase reveal" style="direction: rtl;" id="ikava-showcase">
+                    <div class="product-image">
+                        <img src="LOGO/Ikava Hygiene & Cleaning.jpg" alt="Ikava Hygiene Range">
+                    </div>
+                    <div class="product-info" style="direction: ltr;">
+                        <h3>Ikava Hygiene & Cleaning</h3>
+                        <p>Professional grade cleaning solutions for a safer home. High-quality hygiene products for daily use.</p>
+                        <ul class="product-list">
+                            <li><i class="fas fa-sparkles"></i> Floor Cleaner (Sandal, Lemon, Jasmine)</li>
+                            <li><i class="fas fa-sparkles"></i> Hand Wash & Dish Wash Liquid</li>
+                            <li><i class="fas fa-sparkles"></i> Toilet & Bathroom Cleaner</li>
+                            <li><i class="fas fa-sparkles"></i> Glass & Multi-Surface Spray</li>
+                            <li><i class="fas fa-sparkles"></i> Surface Disinfectant Spray</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Yutika -->
+                <div class="product-showcase reveal" id="yutika-showcase">
+                    <div class="product-image">
+                        <img src="LOGO/Yutika Herbal Skincare.png" alt="Yutika Herbal Skincare Range">
+                    </div>
+                    <div class="product-info">
+                        <h3>Yutika Herbal Skincare</h3>
+                        <p>Natural beauty rooted in tradition. Premium range of hair color and herbal skincare products.</p>
+                        <ul class="product-list">
+                            <li><i class="fas fa-smile"></i> Premium Hair Color Range</li>
+                            <li><i class="fas fa-smile"></i> Herbal Face Wash & Creams</li>
+                            <li><i class="fas fa-smile"></i> Rose Water & Natural Gels</li>
+                            <li><i class="fas fa-smile"></i> Shampoo & Conditioner</li>
+                            <li><i class="fas fa-smile"></i> Cold Cream & Moisturizers</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+            </div>
+        </section>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="container">
+                <h2>Get In Touch</h2>
+                <div class="contact-grid">
+                    <div class="contact-form-info">
+                        <div class="contact-info-item">
+                            <i class="fas fa-location-dot"></i>
+                            <div>
+                                <h4>Our Office</h4>
+                                <p>Door No : 76-1-GF/17, Revenue Ward 28,<br>
+                                    Sai Nirman Complex, Police Station Road,<br>
+                                    APHB Colony, Bhavani Puram, Vijayawada - 520012</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Phone Numbers</h4>
+                                <p>+91 81258 12508<br>+91 81252 07888</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email Address</h4>
+                                <p>gajananavja@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-map-placeholder"
+                        style="background: rgba(255,255,255,0.1); border-radius: 20px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 2rem;">
+                        <div>
+                            <i class="fas fa-map-marked-alt"
+                                style="font-size: 4rem; margin-bottom: 1rem; color: var(--secondary);"></i>
+                            <h3>Visit Our Store</h3>
+                            <p>Located in the heart of Vijayawada for easy accessibility.</p>
+                            <a href="https://www.google.com/maps/search/Sai+Nirman+Complex+Bhavani+Puram+Vijayawada"
+                                target="_blank" class="cta-button"
+                                style="background: var(--primary); color: #000000; margin-top: 1rem;">Open in
+                                Google Maps</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Sree Gajanana Enterprises. All Rights Reserved.</p>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem;">Distributors of Artos | Ikava | Parry's | Yutika | Surya
+                Masale | Continental Coffee</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Scroll Reveal
+        function reveal() {
+            document.querySelectorAll(".reveal").forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 100)
+                    el.classList.add("active");
+            });
+        }
+        window.addEventListener("scroll", reveal);
+        window.addEventListener("load", reveal);
+
+        // ── BIG GLOWING GOLD SPOTS ──
+        const canvas = document.createElement('canvas');
+        canvas.id = 'particles-canvas';
+        document.body.prepend(canvas);
+        const ctx = canvas.getContext('2d');
+        let pts = [];
+        const resize = () => { canvas.width = innerWidth; canvas.height = document.body.scrollHeight; };
+        resize(); window.addEventListener('resize', resize);
+
+        function makeSpot(startY) {
+            return {
+                x: Math.random() * innerWidth,
+                y: startY !== undefined ? startY : Math.random() * document.body.scrollHeight,
+                r: Math.random() * 3 + 1.5,        // 1.5px to 4.5px — BIG spots
+                dx: (Math.random() - 0.5) * 0.6,    // Horizontal drift
+                dy: -(Math.random() * 0.4 + 0.15),  // Slow upward float
+                a: Math.random() * 0.7 + 0.3,       // 0.3 to 1.0 — BRIGHT
+                glow: Math.random() * 8 + 4,         // Glow halo size
+                c: Math.random() > 0.3 ? '255,215,0' : '255,180,0'  // Gold shades
+            };
+        }
+
+        for (let i = 0; i < 150; i++) pts.push(makeSpot());
+
+        (function loop() {
+            resize();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            pts.forEach((p, i) => {
+                p.x += p.dx;
+                p.y += p.dy;
+                p.a -= 0.0005;
+
+                // Respawn when faded or off-screen
+                if (p.a <= 0 || p.y < -20 || p.x < -20 || p.x > canvas.width + 20) {
+                    pts[i] = makeSpot(document.body.scrollHeight + 20);
+                    return;
+                }
+
+                // Draw glow halo
+                const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.glow);
+                grad.addColorStop(0, `rgba(${p.c},${p.a * 0.6})`);
+                grad.addColorStop(1, `rgba(${p.c},0)`);
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.glow, 0, Math.PI * 2);
+                ctx.fillStyle = grad;
+                ctx.fill();
+
+                // Draw solid core
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${p.c},${p.a})`;
+                ctx.fill();
+            });
+            requestAnimationFrame(loop);
+        })();
+    </script>
+</body>
+</html>
